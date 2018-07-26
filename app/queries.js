@@ -23,11 +23,27 @@ function getAllEmployees(req, res, next) {
       });
   }
   
+  function addEmployee(req, res, next) {
+    database.none('insert into employee(ename, age, gender, sal, dept)' +
+        'values(${ename}, ${age}, ${gender}, ${sal}, ${dept})',
+      req.body)
+      .then(function () {
+        res.status(200)
+          .json({
+            status: 'success',
+            message: 'Added new employee'
+          });
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+  }
+  
 
   module.exports = {
-    getAllEmployees: getAllEmployees/* ,
+    getAllEmployees: getAllEmployees,
+    addEmployee: addEmployee/* ,
     getEmployee: getEmployee,
-    addEmployee: addEmployee,
     updateEmployee: updateEmployee,
     removeEmployee: removeEmployee */
 };

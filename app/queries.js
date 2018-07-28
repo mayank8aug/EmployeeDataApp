@@ -38,12 +38,27 @@ function getAllEmployees(req, res, next) {
         return next(err);
       });
   }
-  
+
+  function getEmployee(req, res, next) {
+    var empId = parseInt(req.params.id);
+    database.one('select * from employee where id = $1', empId)
+      .then(function (data) {
+        res.status(200)
+          .json({
+            status: 'success',
+            data: data,
+            message: 'Successfully fetched employee with id: ' + empId
+          });
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+  }  
 
   module.exports = {
     getAllEmployees: getAllEmployees,
-    addEmployee: addEmployee/* ,
-    getEmployee: getEmployee,
+    addEmployee: addEmployee,
+    getEmployee: getEmployee/*,
     updateEmployee: updateEmployee,
     removeEmployee: removeEmployee */
 };

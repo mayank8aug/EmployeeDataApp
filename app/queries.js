@@ -53,12 +53,28 @@ function getAllEmployees(req, res, next) {
       .catch(function (err) {
         return next(err);
       });
-  }  
+  }
+
+  function updateEmployee(req, res, next) {
+    database.none('update employee set sal=$1 where id=$2',
+      [req.body.sal, parseInt(req.params.id)])
+      .then(function () {
+        res.status(200)
+          .json({
+            status: 'success',
+            message: 'Updated the employee successfully.' 
+          });
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+  }
+  
 
   module.exports = {
     getAllEmployees: getAllEmployees,
     addEmployee: addEmployee,
-    getEmployee: getEmployee/*,
-    updateEmployee: updateEmployee,
+    getEmployee: getEmployee,
+    updateEmployee: updateEmployee/*,
     removeEmployee: removeEmployee */
 };

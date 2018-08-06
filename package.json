@@ -1,0 +1,12 @@
+{
+  "name": "EmployeeDataApp",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd frontend && npm start",
+    "server": "cd backend && npm start",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}
